@@ -1,0 +1,109 @@
+
+ * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: white;
+            color: black;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: white;
+            padding: 25px;
+        }
+
+        h1, h2 {
+            margin-bottom: 15px;
+            color: black;
+        }
+
+        .section {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid white;
+        }
+
+        .section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid black;
+            font-size: 14px;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            margin-right: 5px;
+        }
+
+        button:hover {
+            background-color: darkgreen;
+        }
+
+        button.danger {
+            background-color: red;
+        }
+
+        button.danger:hover {
+            background-color: darkred;
+        }
+
+        .profile-card {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+        }
+
+        .profile-card p {
+            margin-bottom: 8px;
+        }
+
+        ul {
+            list-style-type: none;
+            margin-top: 15px;
+        }
+
+        li {
+            background: white;
+            padding: 10px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }

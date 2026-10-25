@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment 5 - JavaScript Basics</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>User Profile & List Manager</h1>
+
+        <div class="section">
+            <h2>Update Profile</h2>
+            <form id="profileForm">
+                <div class="form-group">
+                    <label for="usernameInput">Username:</label>
+                    <input type="text" id="usernameInput" required>
+                </div>
+                <div class="form-group">
+                    <label for="birthYearInput">Birth Year:</label>
+                    <input type="number" id="birthYearInput" required min="1900" max="2026">
+                </div>
+                <button type="submit" id="updateBtn">Create / Update Profile</button>
+            </form>
+        </div>
+
+        <div class="section">
+            <h2>Profile Details</h2>
+            <div class="profile-card">
+                <p><strong>Name:</strong> <span id="displayName"></span></p>
+                <p><strong>Birth Year:</strong> <span id="displayBirthYear"></span></p>
+                <p><strong>Is Developer:</strong> <span id="displayIsDev"></span></p>
+                <p><strong>Calculated Age:</strong> <span id="displayAge"></span> years old</p>
+                <p><strong>Age in Months:</strong> <span id="displayAgeMonths"></span> months</p>
+                <p><strong>Total Hobbies/Tasks:</strong> <span id="displayHobbiesCount"></span></p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Hobbies & Tasks</h2>
+            <div class="form-group">
+                <input type="text" id="itemInput" placeholder="Enter a new hobby or task">
+            </div>
+            <div class="controls">
+                <button type="button" id="addItemBtn">Add Item</button>
+                <button type="button" id="removeItemBtn" class="danger">Remove Item</button>
+            </div>
+            <ul id="itemList"></ul>
+        </div>
+    </div>
+
+    <script>
+        const userProfile = {
+            name: "Amirkhan",
+            birthYear: 2008,
+            isDeveloper: true,
+            hobbies: ["Coding", "Playing games", "Listening to music"]
+        };
+
+        const profileForm = document.getElementById("profileForm");
+        const usernameInput = document.getElementById("usernameInput");
+        const birthYearInput = document.getElementById("birthYearInput");
+
+        const displayName = document.getElementById("displayName");
+        const displayBirthYear = document.getElementById("displayBirthYear");
+        const displayIsDev = document.getElementById("displayIsDev");
+        const displayAge = document.getElementById("displayAge");
+        const displayAgeMonths = document.getElementById("displayAgeMonths");
+        const displayHobbiesCount = document.getElementById("displayHobbiesCount");
+
+        const itemInput = document.getElementById("itemInput");
+        const addItemBtn = document.getElementById("addItemBtn");
+        const removeItemBtn = document.getElementById("removeItemBtn");
+        const itemList = document.getElementById("itemList");
+
+        function calculateMetrics() {
+            const currentYear = new Date().getFullYear();
+            const age = currentYear - userProfile.birthYear;
+            const ageInMonths = age * 12;
+            const hobbiesCount = userProfile.hobbies.length;
+
+            return {
+                age: age,
+                ageInMonths: ageInMonths,
+                hobbiesCount: hobbiesCount
+            };
+        }
+
+        function renderProfile() {
+            const metrics = calculateMetrics();
+
+            displayName.textContent = userProfile.name;
+            displayBirthYear.textContent = userProfile.birthYear;
+            displayIsDev.textContent = userProfile.isDeveloper ? "Yes" : "No";
+            displayAge.textContent = metrics.age;
+            displayAgeMonths.textContent = metrics.ageInMonths;
+            displayHobbiesCount.textContent = metrics.hobbiesCount;
+
+            console.log("Current User Profile:", userProfile);
+            console.log("Calculated Age:", metrics.age);
+            console.log("Calculated Age in Months:", metrics.ageInMonths);
+            console.log("Total Hobbies Count:", metrics.hobbiesCount);
+        }
+
+        function renderList() {
+            itemList.innerHTML = "";
+            userProfile.hobbies.forEach(function(hobby) {
+                const li = document.createElement("li");
+                li.textContent = hobby;
+                itemList.appendChild(li);
+            });
+            renderProfile();
+        }
+
+        usernameInput.value = userProfile.name;
+        birthYearInput.value = userProfile.birthYear;
+
+        profileForm.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const newName = usernameInput.value.trim();
+            const newBirthYear = parseInt(birthYearInput.value, 10);
+
+            if (newName !== "" && !isNaN(newBirthYear)) {
+                userProfile.name = newName;
+                userProfile.birthYear = newBirthYear;
+                renderProfile();
+            }
+        });
+
+        addItemBtn.addEventListener("click", function() {
+            const newItemText = itemInput.value.trim();
+            if (newItemText !== "") {
+                userProfile.hobbies.push(newItemText);
+                itemInput.value = "";
+                renderList();
+            }
+        });
+
+        removeItemBtn.addEventListener("click", function() {
+            if (userProfile.hobbies.length > 0) {
+                userProfile.hobbies.pop();
+                renderList();
+            }
+        });
+
+        renderList();
+    </script>
+</body>
+</html>
